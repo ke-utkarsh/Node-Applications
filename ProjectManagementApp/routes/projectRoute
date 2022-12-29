@@ -1,0 +1,104 @@
+const { json } = require("body-parser");
+const { query } = require("express");
+const express = require("express")
+const router=express.Router();
+const sql=require("../connector");
+
+router.post('/showProjects',async(req,res)=>{
+    tname=req.body.tname
+    stm='select * from project where tname="'+req.body.tname+'"'
+    if(tname==""){
+        stm='select * from project'
+    }
+    sql.query(stm,(err,response)=>{
+        if(err){
+            res.json(err)
+        }else{
+            res.json(response)
+        }
+    })
+})
+
+router.post("/addProject",async(req,res)=>{
+    pname=req.body.pname;
+    sdate=req.body.sdate;
+    edate=req.body.edate;
+    pdes=req.body.pdes;
+    tname=req.body.tname;
+
+    sql.query('select * from project where pname="'+pname+'"',(error,result)=>{
+        if(result.body==null){
+            d1=new Date(sdate)
+            d2=new Date(edate)
+            if(d2<d1)res.json({"record_created":false,"msg":"End date must be greater than start date"})
+            else{
+                sql.query('Insert into project(pname,sdate,edate,pdes,tname) values("'+pname+'","'+sdate+'","'+edate+'","'+pdes+'","'+tname+'")',(err,response)=>{
+                    if(err){
+                        res.json({"record_created":false,"msg":"Error Occured while creating record"})
+                    }else{
+                        res.json({"record_created":true,"msg":"Record created successfully"})
+                    }
+                })
+            }
+            
+        }else{
+            res.json({"record_created":false,"msg":"Record with same project name exists"})
+        }
+    })
+
+    
+})
+
+router.post("/deleteProject",async(req,res)=>{
+    pname=req.body.pname
+    sql.query('delete from project where pname="'+pname+'"',(err,response)=>{
+        if(err){
+            res.json({"record_created":"true","msg":"Record Not Deleted"})
+        }else{
+            res.json({"record_created":"true","msg":"Record Deleted Successfully"})
+        }
+    })
+})
+
+router.post("/updateProject",async(req,res)=>{
+    pname=req.body.pname
+    pdes=req.body.pdes
+    tname=req.body.tname
+
+    stm='update project set pdes="'+pdes+'",tname="'+tname+'" where pname="'+pname+'"'
+    sql.query(stm,(err,response)=>{
+        if(err){
+            res.json({"record_created":"false","msg":"Record is not updated"})
+        }else{
+            res.json({"record_created":"true","msg":"Record updated successfully"})
+        }
+    })
+})
+
+router.post("/selectProject",async(req,res)=>{
+    pname=req.body.pname;
+    stm='select * from project where pname="'+pname+'"'
+    sql.query(stm,(err,response)=>{
+        if(err){
+            res.json(err)
+        }else{
+            res.json(response)
+        }
+
+    })
+})
+
+router.post("/login",async(req,res)=>{
+    eid=req.body.eid;
+    password=req.body.password;
+    stm ='select * from yamaha_user where eid="'+eid+'" and password="'+password+'"'
+    sql.query(stm,(err,response)=>{
+        if(err){
+            res.json({"record_created":"false","msg":"Server Error"})
+        }else{
+           res.json(response)
+        }
+    })
+})
+
+module.exports = router
