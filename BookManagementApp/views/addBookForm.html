@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Add a Book Form</title>
+    </head>
+    <body>
+        <form action="addBook" name="AddBook" method="post">
+            <table cellspacing = "2" cellpadding = "2" border = "1">
+            
+                <tr>
+                   <td align = "right">Book Name</td>
+                   <td><input type = "text" name = "Name" /></td>
+                </tr>
+                
+                <tr>
+                   <td align = "right">Book Price</td>
+                   <td><input type = "number" name = "Price" /></td>
+                </tr>
+                
+                <tr>
+                   <td align = "right">Author Name</td>
+                   <td><input type = "text" name = "Author" /></td>
+                </tr>
+                
+                <tr>
+                   <td align = "right">Genre</td>
+                   <td>
+                      <select name = "Country">
+                         <option value = "None" selected>[choose yours]</option>
+                         <option value = "friction">Friction</option>
+                         <option value = "biographies">Biographies</option>
+                         <option value = "horror">Horror</option>
+                         <option value = "comics">Comics</option>
+                         <option value = "culture">Culture</option>
+                      </select>
+                   </td>
+                </tr>
+                
+                <tr>
+                   <td align = "right"></td>
+                   <td><input type = "submit" value = "Submit" /></td>
+                </tr>
+                
+             </table>
+        </form>
+    </body>
+</html>
