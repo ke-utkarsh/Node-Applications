@@ -1,0 +1,22 @@
+{
+  "name": "bookmanagmentapp1",
+  "version": "1.0.0",
+  "description": "Book Managment OJT App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Utkarsh Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mongoose": "^6.6.0",
+    "nodemon": "^2.0.19",
+    "url": "^0.11.0"
+  }
+}
